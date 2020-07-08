@@ -31,31 +31,6 @@ export default class Game extends Phaser.Scene {
         this.opponentCards = [];
 
 
-        this.socket = io('http://localhost:3000');
-        this.socket.on('connect', function () {
-            console.log('Connected!');
-        });
-
-        this.socket.on('isPlayerA', function () {
-            self.isPlayerA = true;
-        })
-
-        this.socket.on('dealCards', function () {
-            self.dealer.dealCards();
-            self.dealText.disableInteractive();
-        })
-
-        this.socket.on('cardPlayed', function (gameObject, isPlayerA) {
-            if (isPlayerA !== self.isPlayerA) {
-                let sprite = gameObject.textureKey;
-                self.opponentCards.shift().destroy();
-                let card = new Card(self);
-                console.log(gameObject.y);
-                console.log(800-gameObject.y);
-                card.render(gameObject.x, 800-gameObject.y, sprite);
-                gameObject.input.draggable = false;
-            }
-        })
 
 
 
